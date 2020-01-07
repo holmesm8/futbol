@@ -149,5 +149,11 @@ class Season < Game
     team_names
   end
 
+  def biggest_bust
+    # return the name of the team
+    # regular - post (win percetages)
+    # max
+    name = ''
+  end
 
 end

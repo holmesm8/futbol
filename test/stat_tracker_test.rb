@@ -66,46 +66,50 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 32, Game.count_of_teams
+    assert_equal 32, @stat_tracker.count_of_teams
   end
 
   def test_finds_team_with_best_offense
-    assert_equal "Reign FC", Game.best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
   end
 
   def test_finds_team_with_worst_offense
-    assert_equal "North Carolina Courage", Game.worst_offense
+    assert_equal "North Carolina Courage", @stat_tracker.worst_offense
   end
 
   def test_finds_team_with_best_defense
-    assert_equal "North Carolina Courage", Game.best_defense
+    assert_equal "North Carolina Courage", @stat_tracker.best_defense
   end
 
   def test_finds_team_with_worst_defense
-    assert_equal "Los Angeles FC", Game.worst_defense
+    assert_equal "Los Angeles FC", @stat_tracker.worst_defense
   end
 
   def test_finds_team_with_highest_scoring_visitor
-    assert_equal "North Carolina Courage", Game.highest_scoring_visitor
+    assert_equal "North Carolina Courage", @stat_tracker.highest_scoring_visitor
   end
 
   def test_finds_team_with_highest_scoring_home_team
-    assert_equal "Reign FC", Game.highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
   def test_finds_team_with_lowest_scoring_home_team
-    assert_equal "North Carolina Courage", Game.lowest_scoring_home_team
+    assert_equal "North Carolina Courage", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_finds_team_with_lowest_scoring_visitor
+    assert_equal "Los Angeles FC", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_determine_winningest_team_across_all_seasons
-    assert_equal "FC Dallas", Season.winningest_team
+    assert_equal "FC Dallas", @stat_tracker.winningest_team
   end
 
   def test_it_can_determine_best_fans
-    assert_equal "LA Galaxy", Season.best_fans
+    assert_equal "LA Galaxy", @stat_tracker.best_fans
   end
 
   def test_it_can_determine_worst_fans
-    assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], Season.worst_fans
+    assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], @stat_tracker.worst_fans
   end
 end

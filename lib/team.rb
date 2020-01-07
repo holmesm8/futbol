@@ -19,13 +19,4 @@ class Team
     @team_name = team_info[:teamname]
   end
 
-  
-
-
-
-
-
-
-
-
 end
