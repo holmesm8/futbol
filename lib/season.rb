@@ -55,8 +55,7 @@ class Season < Game
     end
   end
 
-  def self.home_win_percentage
-    total_home_games_played
+  def self.total_home_wins_by_team
     testy = @@all_seasons.reduce({}) do |acc, season|
       if acc.keys.include?(season.team_id) && (season.hoa == "home" && season.result == "WIN")
         acc[season.team_id] += 1
@@ -65,23 +64,90 @@ class Season < Game
       end
       acc
     end
-    require "pry"; binding.pry
   end
 
-  # def self.home_win_percentage
-  #   @@all_seasons.reduce({0}) do |acc, season|
-  #     require "pry"; binding.pry
-  #     if acc.keys.include?(season.team_id)
-  #       acc[season.team_id] =
-  #     # {team_id => total wins / total games}
-  #   end
-  # end
+  def self.total_away_wins_by_team
+    testy = @@all_seasons.reduce({}) do |acc, season|
+      if acc.keys.include?(season.team_id) && (season.hoa == "away" && season.result == "WIN")
+        acc[season.team_id] += 1
+      elsif (season.hoa == "away" && season.result == "WIN")
+        acc[season.team_id] = 1
+      end
+      acc
+    end
+  end
 
-  def self.best_fans
+  def self.home_win_percentages
+    home_wins = total_home_wins_by_team
+    num_home_games = total_home_games_played
 
+    percentages = @@all_seasons.reduce({}) do |acc, season|
+      if home_wins.keys.include?(season.team_id) && !acc.keys.include?(season.team_id)
+        acc[season.team_id] = ((home_wins[season.team_id] / num_home_games[season.team_id].to_f) * 100).round(2)
+      end
+      acc
+    end
+  end
+
+  def self.away_win_percentages
+    away_wins = total_away_wins_by_team
+    num_away_games = total_away_games_played
+
+    percentages = @@all_seasons.reduce({}) do |acc, season|
+      if away_wins.keys.include?(season.team_id) && !acc.keys.include?(season.team_id)
+        acc[season.team_id] = ((away_wins[season.team_id] / num_away_games[season.team_id].to_f) * 100).round(2)
+      end
+      acc
+    end
   end
 
   def self.winningest_team
+    win_percentages = home_win_percentages
 
+    first_highest_percentage = win_percentages.find do |team_id_percentage|
+      team_id_percentage if win_percentages.values.max == win_percentages[team_id_percentage.first]
+    end
+
+    name = ''
+    @@all_teams.each do |team|
+      if first_highest_percentage.first == team.team_id
+        name = team.team_name
+      end
+    end
+    name
   end
+
+  def self.best_fans
+    home_percentages = home_win_percentages
+    away_percentages = away_win_percentages
+
+    max = 0.0
+    name = ''
+    @@all_teams.each do |team|
+       if away_percentages.keys.include?(team.team_id) && home_percentages.keys.include?(team.team_id)
+        if (home_percentages[team.team_id] - away_percentages[team.team_id]) > max
+          max = (home_percentages[team.team_id] - away_percentages[team.team_id])
+          name = team.team_name
+        end
+       end
+    end
+    name
+  end
+
+  def self.worst_fans
+    away_percentages = away_win_percentages
+    home_percentages = home_win_percentages
+
+    team_names = []
+    @@all_teams.each do |team|
+      if away_percentages.keys.include?(team.team_id) && home_percentages.keys.include?(team.team_id)
+        if away_percentages[team.team_id] > home_percentages[team.team_id]
+          team_names << team.team_name
+        end
+      end
+    end
+    team_names
+  end
+
+
 end

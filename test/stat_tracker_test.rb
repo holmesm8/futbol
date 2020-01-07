@@ -23,7 +23,7 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_has_attributes
     assert_instance_of Array, @stat_tracker.games
-    assert_instance_of Games, @stat_tracker.games[0]
+    assert_instance_of Game, @stat_tracker.games[0]
     assert_instance_of Array, @stat_tracker.teams
     assert_instance_of Team, @stat_tracker.teams[0]
     assert_equal './data/game_teams_dummy.csv', @stat_tracker.game_teams
@@ -66,10 +66,46 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_count_of_teams
-    assert_equal 32, Games.count_of_teams
+    assert_equal 32, Game.count_of_teams
   end
 
   def test_finds_team_with_best_offense
-    assert_equal "Reign FC", Games.best_offense
+    assert_equal "Reign FC", Game.best_offense
+  end
+
+  def test_finds_team_with_worst_offense
+    assert_equal "North Carolina Courage", Game.worst_offense
+  end
+
+  def test_finds_team_with_best_defense
+    assert_equal "North Carolina Courage", Game.best_defense
+  end
+
+  def test_finds_team_with_worst_defense
+    assert_equal "Los Angeles FC", Game.worst_defense
+  end
+
+  def test_finds_team_with_highest_scoring_visitor
+    assert_equal "North Carolina Courage", Game.highest_scoring_visitor
+  end
+
+  def test_finds_team_with_highest_scoring_home_team
+    assert_equal "Reign FC", Game.highest_scoring_home_team
+  end
+
+  def test_finds_team_with_lowest_scoring_home_team
+    assert_equal "North Carolina Courage", Game.lowest_scoring_home_team
+  end
+
+  def test_it_can_determine_winningest_team_across_all_seasons
+    assert_equal "FC Dallas", Season.winningest_team
+  end
+
+  def test_it_can_determine_best_fans
+    assert_equal "LA Galaxy", Season.best_fans
+  end
+
+  def test_it_can_determine_worst_fans
+    assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], Season.worst_fans
   end
 end
