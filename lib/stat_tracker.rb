@@ -102,4 +102,8 @@ class StatTracker
   def worst_fans
     Season.worst_fans
   end
+
+  def biggest_bust(season)
+    Season.biggest_bust(season)
+  end
 end

@@ -27,7 +27,7 @@ class Game < Team
   end
 
   def initialize(game_info)
-    @game_id = game_info[:game_id].to_i
+    @game_id = game_info[:game_id]
     @season = game_info[:season]
     @type = game_info[:type]
     @date_time = game_info[:date_time]
