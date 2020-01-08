@@ -5,7 +5,7 @@ require './lib/season'
 class SeasonTest < Minitest::Test
 
   def setup
-    Game.from_csv('./data/games_dummy.csv')
+    Game.from_csv('./data/games.csv')
     @game = Game.all[0]
 
     Team.from_csv('./data/teams.csv')
@@ -33,6 +33,10 @@ class SeasonTest < Minitest::Test
                   29=>2, 17=>2, 27=>1})
 
     assert_equal expected, Season.total_away_games_played
+  end
+
+  def test_it_can_determine_total_home_win_percentage
+    assert_equal ({6=>2, 12=>1, 10=>1, 21=>1, 53=>2, 1=>2, 24=>1, 4=>2}), Season.home_win_percentage
   end
 
   def test_it_can_find_total_home_wins
@@ -65,6 +69,11 @@ class SeasonTest < Minitest::Test
 
   def test_it_can_determine_winningest_team_across_all_seasons
     assert_equal "FC Dallas", Season.winningest_team
+  end
+
+  def test_it_can_sort_by_season
+    skip
+    assert_equal "sdfgfsd", Season.seasons_filter("20132014")
   end
 
   def test_it_can_determine_best_fans
@@ -119,5 +128,30 @@ class SeasonTest < Minitest::Test
     expected = {5=>60.0, 4=>20.0, 14=>50.0, 1=>50.0, 54=>50.0, 28=>50.0}
 
     assert_equal expected, Season.postseason_win_percentages("20132014")
+  end
+
+  def test_it_can_return_team_with_most_tackles_in_the_season
+    assert_equal "Houston Dash", Season.most_tackles("20132014")
+  end
+
+  def test_it_can_return_team_with_fewest_tackles_in_the_season
+    skip
+    assert_equal "Montreal Impact", Season.fewest_tackles("20132014")
+  end
+
+  def test_it_can_return_the_winningest_coach_by_season
+    assert_equal "John Tortorella", Season.winningest_coach("20132014")
+  end
+
+  def test_it_can_return_the_worst_coach_by_season
+    assert_equal "Mike Yeo", Season.worst_coach("20132014")
+  end
+
+  def test_most_accurate_team
+    assert_equal "dfsg", Season.most_accurate_team("20132014")
+  end
+
+  def test_least_accurate_team
+    assert_equal "dfsg", Season.least_accurate_team("20132014")
   end
 end

@@ -157,7 +157,6 @@ class Season < Game
     regular_season_percents = regular_season_win_percentages(season)
     postseason_percents = postseason_win_percentages(season)
 
-
     percentage_diff = postseason_percents.reduce({}) do |acc, (ps_id, ps_percent)|
       acc[ps_id] = (ps_percent - regular_season_percents[ps_id])
       acc
@@ -165,7 +164,6 @@ class Season < Game
 
     max_percent = percentage_diff.values.max
     name = find_team_name(percentage_diff.key(max_percent))
-    require "pry"; binding.pry
   end
 
   def self.all_regular_season_games(season)
@@ -175,8 +173,9 @@ class Season < Game
   end
 
   def self.all_postseason_games(season)
-    @@all_games.find_all do |game|
+    testy = @@all_games.find_all do |game|
       game if game.type == "Postseason" && game.season == season
+      # require "pry"; binding.pry
     end
   end
 
@@ -258,6 +257,7 @@ class Season < Game
 
   def self.total_postseason_wins_by_team(season)
     postseason_games = all_postseason_games(season)
+
     postseason_games.reduce({}) do |acc, game|
       winner_id = winner(game)
       loser_id = loser(game)
@@ -301,12 +301,6 @@ class Season < Game
     end
   end
 
-  def self.find_team_name(id)
-    testy = @@all_teams.find do |team|
-      return team.team_name if team.team_id == id[0]
-    end
-  end
-
   def self.seasons_filter(season_id)
     season_filter = @@all_seasons.find_all do |season|
       season if season_id.slice(0..3) == season.game_id.slice(0..3)
@@ -320,7 +314,7 @@ class Season < Game
       result
     end
     id_stat = team_tackles.max_by {|k, v| v}
-    find_team_name(id_stat)
+    find_team_name(id_stat.first)
   end
 
   def self.fewest_tackles(season_id)
@@ -330,7 +324,7 @@ class Season < Game
       result
     end
     id_stat = team_tackles.min_by {|k, v| v}
-    find_team_name(id_stat)
+    find_team_name(id_stat.first)
   end
 
   def self.winningest_coach(season_id)
@@ -383,10 +377,12 @@ class Season < Game
 
   def self.shot_to_goal_ratio_per_game(season_id)
     game_team_objects_array_by_season = seasons_filter(season_id)
-    ratio_per_game_hash = game_team_objects_array_by_season.reduce (Hash.new([])) do |acc, season|
-      if acc.keys.include?(season.team_id)
+    game_team_objects_array_by_season.reduce (Hash.new([])) do |acc, season|
+      if season.shots == 0
+        acc[season.team_id] = 0
+      elsif acc.keys.include?(season.team_id)
         acc[season.team_id] << (season.goals/season.shots.to_f).round(2)
-      elsif !acc.keys.include?(season.team_id)
+      elsif !acc.keys.include?(season.team_id) && acc[season.team_id] != 0
         acc[season.team_id] = [(season.goals/season.shots.to_f).round(2)]
       end
       acc
@@ -401,12 +397,12 @@ class Season < Game
 
   def self.max_value_team(team_accuracy_average_hash)
     team_id_2 = team_accuracy_average_hash.max_by {|k, v| v}
-    find_team_name(team_id_2)
+    find_team_name(team_id_2.first)
   end
 
   def self.min_value_team(team_accuracy_average_hash)
     team_id_3 = team_accuracy_average_hash.min_by {|k, v| v}
-    find_team_name(team_id_3)
+    find_team_name(team_id_3.first)
   end
 
   def self.find_team_name(id)
@@ -414,7 +410,6 @@ class Season < Game
       return team.team_name if team.team_id == id
     end
   end
-
 
   # def coach_wins
   #   seasons_by_season.reduce(Hash.new(0)) do |result, season|
@@ -428,7 +423,7 @@ class Season < Game
   #     result[season.head_coach] += 1
   #     result
   #   end
-  # endend
+  # end
 
 
 # team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)

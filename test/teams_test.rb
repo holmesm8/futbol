@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/team'
-require './lib/season'
+require 'mocha/minitest'
 
 class TeamTest < Minitest::Test
 

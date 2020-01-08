@@ -159,15 +159,15 @@ class Game < Team
   def self.max_value_team
     team_id_average_scores
     team_id = @@team_id_scores.key(@@team_id_scores.values.max)
-    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team.team_name
+    team_found = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
+    team_found.team_name
   end
 
   def self.min_value_team
     team_id_average_scores
     team_id = @@team_id_scores.key(@@team_id_scores.values.min)
-    team = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team.team_name
+    team_found = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
+    team_found.team_name
   end
 
 

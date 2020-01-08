@@ -1,3 +1,6 @@
+require 'csv'
+require_relative './csv_loadable'
+
 class Team
   extend CsvLoadable
 
