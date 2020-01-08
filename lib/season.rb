@@ -157,23 +157,9 @@ class Season < Game
       acc[key] = (regular_season_win_percents[key] - postseason_win_percents[key]).round(2)
       acc
     end
-    require "pry"; binding.pry
 
-    # max = 0
-    # name = ''
-    # @@all_teams.each do |team|
-    #   if postseason_win_percents.keys.include?(team.team_id)
-    #     if postseason_win_percents[team.team_id] == 0
-    #       max = regular_season_win_percents[team.team_id]
-    #     elsif regular_season_win_percents[team.team_id] == 0
-    #       max = postseason_win_percents[team.team_id]
-    #    elsif (regular_season_win_percents[team.team_id] - postseason_win_percents[team.team_id]) > max
-    #      max = (regular_season_win_percents[team.team_id] - postseason_win_percents[team.team_id]).round(2)
-    #      name = team.team_name
-    #    end
-    #   end
-    # end
-    # name
+    max_percent = percentage_diff.max_by {|id, percent| percent}
+    find_team_name(max_percent[0])
   end
 
   def self.all_regular_season_games(season)
@@ -295,6 +281,12 @@ class Season < Game
       game_object.away_team_id
     elsif game_object.home_goals < game_object.away_goals
       game_object.home_team_id
+    end
+  end
+
+  def self.find_team_name(id)
+    testy = @@all_teams.find do |team|
+      return team.team_name if team.team_id == id[0]
     end
   end
 end
