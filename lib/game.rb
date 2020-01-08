@@ -196,7 +196,7 @@ class Game < Team
         if team.team_id == game.home_team_id
           @@team_id_scores[team.team_id] << game.home_goals
         end
-      end.compact
+      end
     end
   end
 
@@ -239,9 +239,12 @@ class Game < Team
     end
   end
 
-  # def self.winner
-  #   return @home_team_id if @home_goals > @away_goals
-  #   @away_team_id
-  # end
+  def self.winner(game_object)
+    if game_object.home_goals > game_object.away_goals
+      game_object.home_team_id
+    elsif game_object.home_goals < game_object.away_goals
+      game_object.away_team_id
+    end
+  end
 
 end

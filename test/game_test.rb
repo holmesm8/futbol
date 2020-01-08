@@ -102,14 +102,14 @@ class GameTest < Minitest::Test
     assert_equal "Los Angeles FC", Game.lowest_scoring_visitor
   end
 
-  # def test_it_can_find_the_max_value_and_the_team_associated_to_it
-  #   @@team_id_scores = mock({4=>[1, 0, 2],
-  #     26=>[3, 3],
-  #     14=>[1, 3]})
-  #   assert_equal "Los Angeles FC", Game.max_value_team
-  # end
+  def test_it_can_find_the_max_value_and_the_team_associated_to_it
+    @@team_id_scores = mock({4=>[1, 0, 2],
+      26=>[3, 3],
+      14=>[1, 3]})
+    assert_equal "Los Angeles FC", Game.max_value_team
+  end
 
-  # def test_it_can_determine_winner
-  #   assert_equal "sfgdfg", Game.winner
-  # end
+  def test_it_can_determine_winner_team_id
+    assert_equal 6, Game.winner(@game)
+  end
 end

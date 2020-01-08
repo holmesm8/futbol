@@ -14,7 +14,7 @@ class Team
   end
 
   def initialize(team_info)
-    @team_id = team_info[:team_id]
+    @team_id = team_info[:team_id].to_i
     @franchise_id = team_info[:franchiseid]
     @team_name = team_info[:teamname]
     @abbreviation = team_info[:abbreviation]
@@ -30,7 +30,6 @@ class Team
 
   def self.find_team(teamid)
     @@all_teams.find do |team|
-      # binding.pry
       team.team_id == teamid
     end
   end
