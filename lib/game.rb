@@ -181,7 +181,7 @@ class Game < Team
   end
 
   def self.team_id_scores_hash
-    testy = @@team_id_scores = @@all_teams.reduce({}) do |hash, team|
+    @@team_id_scores = @@all_teams.reduce({}) do |hash, team|
       hash[team.team_id] = []
       hash
     end

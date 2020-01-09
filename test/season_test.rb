@@ -35,10 +35,6 @@ class SeasonTest < Minitest::Test
     assert_equal expected, Season.total_away_games_played
   end
 
-  def test_it_can_determine_total_home_win_percentage
-    assert_equal ({6=>2, 12=>1, 10=>1, 21=>1, 53=>2, 1=>2, 24=>1, 4=>2}), Season.home_win_percentage
-  end
-
   def test_it_can_find_total_home_wins
     expected = {6=>4, 12=>1, 10=>2, 53=>1, 23=>1, 17=>1, 2=>3, 28=>1, 5=>1,
                   21=>1, 9=>1, 25=>1, 1=>2, 13=>2}
@@ -72,8 +68,8 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_can_sort_by_season
-    skip
-    assert_equal "sdfgfsd", Season.seasons_filter("20132014")
+    season = Season.seasons_filter("20132014")
+    assert_instance_of Season, season[0]
   end
 
   def test_it_can_determine_best_fans
@@ -84,58 +80,11 @@ class SeasonTest < Minitest::Test
     assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], Season.worst_fans
   end
 
-  def test_finds_team_name_with_biggest_bust
-    assert_equal "Montreal Impact", Season.biggest_bust("20122013")
-  end
-
-  def test_can_find_all_regular_season_games
-    regular_season_games = Season.all_regular_season_games("20122013")
-
-    assert_instance_of Array, regular_season_games
-    assert_instance_of Game, regular_season_games[0]
-    assert_instance_of Game, regular_season_games[-1]
-  end
-
-  def test_can_find_all_postseason_games
-    postseason_games = Season.all_postseason_games("20122013")
-
-    assert_instance_of Array, postseason_games
-    assert_instance_of Game, postseason_games[0]
-    assert_instance_of Game, postseason_games[-1]
-  end
-
-  def test_finds_total_regular_season_games_by_team
-    assert_equal ({13=>2, 19=>2, 26=>1, 29=>1}), Season.total_regular_season_games_by_team("20122013")
-  end
-
-  def test_finds_total_postseason_games_by_team
-    assert_equal ({5=>5, 4=>5, 14=>2, 1=>2, 54=>2, 28=>2}), Season.total_postseason_games_by_team("20122013")
-  end
-
-  def test_finds_total_regular_season_wins_by_team
-    assert_equal ({13=>1, 19=>1, 26=>1, 29=>0}), Season.total_regular_season_wins_by_team("20122013")
-  end
-
-  def test_finds_total_postseason_wins_by_team
-    assert_equal ({5=>3, 4=>1, nil=>0, 14=>1, 1=>1, 54=>1, 28=>1}), Season.total_postseason_wins_by_team("20122013")
-  end
-
-  def test_regular_season_win_percentages
-    assert_equal ({13=>50.0, 19=>50.0, 26=>100.0, 29=>0.0}), Season.regular_season_win_percentages("20122013")
-  end
-
-  def test_postseason_win_percentages
-    expected = {5=>60.0, 4=>20.0, 14=>50.0, 1=>50.0, 54=>50.0, 28=>50.0}
-
-    assert_equal expected, Season.postseason_win_percentages("2122013")
-  end
-
   def test_it_can_return_team_with_most_tackles_in_the_season
     assert_equal "Houston Dash", Season.most_tackles("20132014")
   end
 
   def test_it_can_return_team_with_fewest_tackles_in_the_season
-    skip
     assert_equal "Montreal Impact", Season.fewest_tackles("20132014")
   end
 
@@ -155,17 +104,17 @@ class SeasonTest < Minitest::Test
     assert_equal "Minnesota United FC", Season.least_accurate_team("20132014")
   end
 
-  def test_it_can_find_team_record_by_season
-    assert_equal ({"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}),
-      Season.team_record("6")
-  end
+  # def test_it_can_find_team_record_by_season
+  #   assert_equal ({"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}),
+  #     Season.team_record("6")
+  # end
 
-  def test_it_can_find_win_percentage_by_season
-    hash = {"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}
-
-    assert_equal ({"20122013"=>1.0, "20172018"=>0.0, "20132014"=>1.0}),
-      Season.win_percentage_by_season(hash)
-  end
+  # def test_it_can_find_win_percentage_by_season
+  #   hash = {"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}
+  #
+  #   assert_equal ({"20122013"=>1.0, "20172018"=>0.0, "20132014"=>1.0}),
+  #     Season.win_percentage_by_season(hash)
+  # end
 
   def test_it_can_find_best_season
     assert_equal ("20122013"), Season.best_season("6")
@@ -179,29 +128,29 @@ class SeasonTest < Minitest::Test
     assert_equal (0.8), Season.average_win_percentage("6")
   end
 
-  def test_it_can_find_winning_game_id_and_score_by_team
-    assert_equal ({"2012030221"=>"home", "2012030222"=>"home",
-      "2013020795"=>"home", "2013020924"=>"home"}),
-      Season.winning_game_id_and_score_by_team("6")
-  end
+  # def test_it_can_find_winning_game_id_and_score_by_team
+  #   assert_equal ({"2012030221"=>"home", "2012030222"=>"home",
+  #     "2013020795"=>"home", "2013020924"=>"home"}),
+  #     Season.winning_game_id_and_score_by_team("6")
+  # end
 
   def test_it_can_find_the_difference_between_scores
     hash = {"2012030221"=>"away", "2012030222"=>"away"}
     assert_equal ({6=>1}), Season.difference_between_scores(hash)
   end
 
-  def test_it_can_find_the_biggest_blowout
-    assert_equal (2), Season.biggest_team_blowout("6")
-  end
+  # def test_it_can_find_the_biggest_blowout
+  #   assert_equal (2), Season.biggest_team_blowout("6")
+  # end
 
-  def test_it_can_find_losing_game_id_and_score_by_team
-    assert_equal ({"2012030221"=>"away", "2012030222"=>"away"}),
-      Season.losing_game_id_and_score_by_team("3")
-  end
+  # def test_it_can_find_losing_game_id_and_score_by_team
+  #   assert_equal ({"2012030221"=>"away", "2012030222"=>"away"}),
+  #     Season.losing_game_id_and_score_by_team("3")
+  # end
 
-  def test_it_can_find_the_worst_loss
-    assert_equal (2), Season.worst_loss("3")
-  end
+  # def test_it_can_find_the_worst_loss
+  #   assert_equal (2), Season.worst_loss("3")
+  # end
 
   def test_it_can_calculate_most_goals_scored_by_team_id
     assert_equal 2, Season.most_goals_scored("18")
@@ -211,7 +160,11 @@ class SeasonTest < Minitest::Test
     assert_equal 0, Season.fewest_goals_scored("18")
   end
 
-  def test_finds_favorite_opponent
-    assert "dskfgb", Season.favorite_opponent("6")
+  def test_can_find_winner
+    assert_equal 6, Season.winner(@game)
+  end
+
+  def test_can_find_loser
+    assert_equal 3, Season.loser(@game)
   end
 end

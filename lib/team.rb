@@ -27,9 +27,9 @@ class Team
   def self.team_info(teamid)
     team = find_team(teamid)
 
-    teaminfo = {"team_id" => team.team_id.to_s, "franchise_id" => team.franchise_id,
-                "team_name" => team.team_name, "abbreviation" => team.abbreviation,
-                "link" => team.link}
+    {"team_id" => team.team_id.to_s, "franchise_id" => team.franchise_id,
+        "team_name" => team.team_name, "abbreviation" => team.abbreviation,
+        "link" => team.link}
   end
 
   def self.find_team(teamid)
