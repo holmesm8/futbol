@@ -159,17 +159,20 @@ class Game < Team
   def self.max_value_team
     team_id_average_scores
     team_id = @@team_id_scores.key(@@team_id_scores.values.max)
-    team_found = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team_found.team_name
+    find_team_name(team_id)
   end
 
   def self.min_value_team
     team_id_average_scores
     team_id = @@team_id_scores.key(@@team_id_scores.values.min)
-    team_found = @@all_teams.find {|team| team.team_name if team.team_id == team_id}
-    team_found.team_name
+    find_team_name(team_id)
   end
 
+  def self.find_team_name(id)
+    @@all_teams.find do |team|
+      return team.team_name if team.team_id == id
+    end
+  end
 
   def self.team_id_average_scores
     @@team_id_scores.each do |key, value|
@@ -178,7 +181,7 @@ class Game < Team
   end
 
   def self.team_id_scores_hash
-    @@team_id_scores = @@all_teams.reduce({}) do |hash, team|
+    testy = @@team_id_scores = @@all_teams.reduce({}) do |hash, team|
       hash[team.team_id] = []
       hash
     end

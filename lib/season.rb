@@ -335,7 +335,7 @@ class Season < Game
   # end
 
   def self.biggest_team_blowout(team_id)
-    hoa_and_game_ids_for_wins = winning_game_id_and_score_by_team (team_id)
+    hoa_and_game_ids_for_wins = winning_game_id_and_score_by_team(team_id)
     ids_and_scores = difference_between_scores(hoa_and_game_ids_for_wins)
     (ids_and_scores.max_by {|k, v| v})[1]
   end

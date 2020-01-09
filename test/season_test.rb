@@ -148,11 +148,11 @@ class SeasonTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    assert_equal "dfsg", Season.most_accurate_team("20132014")
+    assert_equal "Utah Royals FC", Season.most_accurate_team("20132014")
   end
 
   def test_least_accurate_team
-    assert_equal "dfsg", Season.least_accurate_team("20132014")
+    assert_equal "Minnesota United FC", Season.least_accurate_team("20132014")
   end
 
   def test_it_can_find_team_record_by_season
@@ -172,7 +172,7 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_can_find_worst_season
-    assert_equal ("20172018"), Season.worst_season("6")
+    assert_equal "20122013", Season.worst_season("6")
   end
 
   def test_it_can_find_average_win_percentage
@@ -187,7 +187,7 @@ class SeasonTest < Minitest::Test
 
   def test_it_can_find_the_difference_between_scores
     hash = {"2012030221"=>"away", "2012030222"=>"away"}
-    assert_equal ({"6"=>2}), Season.difference_between_scores(hash)
+    assert_equal ({6=>1}), Season.difference_between_scores(hash)
   end
 
   def test_it_can_find_the_biggest_blowout
