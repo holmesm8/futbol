@@ -231,13 +231,13 @@ class Season < Game
     coach[0]
   end
 
-  def self.most_accurate_team(season_id)	#Name of the Team with the best ratio of shots to goals for the season	String
+  def self.most_accurate_team(season_id)
     ratio_per_game_hash = shot_to_goal_ratio_per_game(season_id)
     team_accuracy_average_hash = average_shots_per_goal_by_team(ratio_per_game_hash)
     max_value_team(team_accuracy_average_hash)
   end
 
-  def self.least_accurate_team(season_id)	#Name of the Team with the best ratio of shots to goals for the season	String
+  def self.least_accurate_team(season_id)	
     ratio_per_game_hash = shot_to_goal_ratio_per_game(season_id)
     team_accuracy_average_hash = average_shots_per_goal_by_team(ratio_per_game_hash)
     min_value_team(team_accuracy_average_hash)

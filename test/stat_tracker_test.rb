@@ -115,10 +115,6 @@ class StatTrackerTest < Minitest::Test
     assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], @stat_tracker.worst_fans
   end
 
-  # def test_can_find_biggest_bust
-  #   assert_equal "Real Salt Lake", @stat_tracker.biggest_bust("20162017")
-  # end
-
   def test_it_can_return_team_with_most_tackles_in_the_season
     assert_equal "Houston Dash", @stat_tracker.most_tackles("20132014")
   end

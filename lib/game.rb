@@ -39,37 +39,31 @@ class Game < Team
   end
 
   def self.highest_total_score
-    #refactor later
     max = @@all_games.max_by {|game| game.away_goals + game.home_goals }
     max.away_goals + max.home_goals
   end
 
   def self.lowest_total_score
-    #refactor later
     min = @@all_games.min_by {|game| game.away_goals + game.home_goals }
     min.away_goals + min.home_goals
   end
 
   def self.biggest_blowout
-    #refactor later
     difference = @@all_games.max_by {|game| (game.away_goals - game.home_goals).abs }
     (difference.away_goals - difference.home_goals).abs
   end
 
   def self.percentage_home_wins
-    #refactor later
     home_wins = @@all_games.find_all {|game| game.home_goals > game.away_goals }
     (home_wins.length / @@all_games.length.to_f).round(2)
   end
 
   def self.percentage_visitor_wins
-    #refactor later
     vis_wins = @@all_games.find_all {|game| game.home_goals < game.away_goals }
     (vis_wins.length / @@all_games.length.to_f).round(2)
   end
 
   def self.percentage_ties
-    #refactor later
     ties = @@all_games.find_all {|game| game.home_goals == game.away_goals }
     (ties.length / @@all_games.length.to_f).round(2)
   end
@@ -107,11 +101,9 @@ class Game < Team
     games_by_season.reduce(Hash.new(0)) do |result, pair|
       result[pair[0]] = (testy[pair[0]] / pair[-1].to_f).round(2)
       result
-      # require "pry"; binding.pry
     end
   end
 
-  # Start of iteration 3
   def self.count_of_teams
     @@all_teams.count
   end
@@ -249,5 +241,4 @@ class Game < Team
       game_object.away_team_id
     end
   end
-
 end

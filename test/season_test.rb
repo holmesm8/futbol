@@ -104,18 +104,6 @@ class SeasonTest < Minitest::Test
     assert_equal "Minnesota United FC", Season.least_accurate_team("20132014")
   end
 
-  # def test_it_can_find_team_record_by_season
-  #   assert_equal ({"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}),
-  #     Season.team_record("6")
-  # end
-
-  # def test_it_can_find_win_percentage_by_season
-  #   hash = {"20122013"=>[1, 1], "20172018"=>[0], "20132014"=>[1, 1]}
-  #
-  #   assert_equal ({"20122013"=>1.0, "20172018"=>0.0, "20132014"=>1.0}),
-  #     Season.win_percentage_by_season(hash)
-  # end
-
   def test_it_can_find_best_season
     assert_equal ("20122013"), Season.best_season("6")
   end
@@ -128,30 +116,11 @@ class SeasonTest < Minitest::Test
     assert_equal (0.8), Season.average_win_percentage("6")
   end
 
-  # def test_it_can_find_winning_game_id_and_score_by_team
-  #   assert_equal ({"2012030221"=>"home", "2012030222"=>"home",
-  #     "2013020795"=>"home", "2013020924"=>"home"}),
-  #     Season.winning_game_id_and_score_by_team("6")
-  # end
-
   def test_it_can_find_the_difference_between_scores
     hash = {"2012030221"=>"away", "2012030222"=>"away"}
     assert_equal ({6=>1}), Season.difference_between_scores(hash)
   end
-
-  # def test_it_can_find_the_biggest_blowout
-  #   assert_equal (2), Season.biggest_team_blowout("6")
-  # end
-
-  # def test_it_can_find_losing_game_id_and_score_by_team
-  #   assert_equal ({"2012030221"=>"away", "2012030222"=>"away"}),
-  #     Season.losing_game_id_and_score_by_team("3")
-  # end
-
-  # def test_it_can_find_the_worst_loss
-  #   assert_equal (2), Season.worst_loss("3")
-  # end
-
+  
   def test_it_can_calculate_most_goals_scored_by_team_id
     assert_equal 2, Season.most_goals_scored("18")
   end
