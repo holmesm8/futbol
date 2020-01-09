@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/team'
-require './lib/season'
+require 'mocha/minitest'
 
 class TeamTest < Minitest::Test
 
@@ -15,6 +15,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_can_return_team_info
-    assert_equal "dfgdg", Team.team_info("18")
+    assert_equal ({"team_id"=>"18", "franchise_id"=>"34", "team_name"=>"Minnesota United FC", "abbreviation"=>"MIN", "link"=>"/api/v1/teams/18"}), Team.team_info("18")
   end
 end

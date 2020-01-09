@@ -108,14 +108,6 @@ class StatTracker
     Season.biggest_bust(season)
   end
 
-  def most_tackles(season)
-    Season.most_tackles(season)
-  end
-
-  def fewest_tackles(season)
-    Season.fewest_tackles(season)
-  end
-
   def winningest_coach(season_id)
     Season.winningest_coach(season_id)
   end
@@ -124,75 +116,57 @@ class StatTracker
     Season.worst_coach(season_id)
   end
 
-  #
-  # def max_value_team
-  #   Game.max_value_team
-  # end
-  #
-  # def min_value_team
-  #   Game.min_value_team
-  # end
+  def most_accurate_team(season_id)
+    Season.most_accurate_team(season_id)
+  end
 
-  #
-  # def team_id_average_scores
-  #   Game.team_id_average_scores
-  # end
+  def least_accurate_team(season_id)
+    Season.least_accurate_team(season_id)
+  end
 
-  # def team_id_scores_hash
-  #    Game.team_id_scores_hash
-  # end
+  def most_tackles(season)
+    Season.most_tackles(season)
+  end
 
-  # def total_score_average_added_by_team
-  #   Game.total_score_average_added_by_team
-  # end
+  def fewest_tackles(season)
+    Season.fewest_tackles(season)
+  end
 
-  # def home_score_values_added_by_team
-  #   Game.home_score_values_added_by_team
-  # end
+  def team_info(id)
+    Team.team_info(id)
+  end
 
-  # def away_score_values_added_by_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.away_team_id
-  #         @@team_id_scores[team.team_id] << game.away_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
+  def best_season(id)
+    Season.best_season(id)
+  end
 
-  # def total_points_allowed_by_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   away_points_allowed_by_home_team
-  #   home_points_allowed_by_away_team
-  # end
-  #
-  # def away_points_allowed_by_home_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.home_team_id
-  #         @@team_id_scores[team.team_id] << game.away_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
-  #
-  # def home_points_allowed_by_away_team
-  #   @@team_id_scores = team_id_scores_hash
-  #   @@all_teams.each do |team|
-  #     @@all_games.each do |game|
-  #       if team.team_id == game.away_team_id
-  #         @@team_id_scores[team.team_id] << game.home_goals
-  #       end
-  #     end.compact
-  #   end
-  # end
-  #
-  # def winner
-  #   return @home_team_id if @home_goals > @away_goals
-  #   @away_team_id
-  # end
+  def worst_season(id)
+    Season.worst_season(id)
+  end
+
+  def average_win_percentage(int)
+    Season.average_win_percentage(int)
+  end
+
+  def most_goals_scored(int)
+    Season.most_goals_scored(int)
+  end
+
+  def fewest_goals_scored(int)
+    Season.fewest_goals_scored(int)
+  end
+
+  def favorite_opponent(team_id)
+    Season.favorite_opponent(team_id)
+  end
+
+  def biggest_team_blowout(team_id)
+    Season.biggest_team_blowout(team_id)
+  end
+
+  def worst_loss(team_id)
+    Season.worst_loss(team_id)
+  end
 
   def most_accurate_team(season_id)
     Season.most_accurate_team(season_id)

@@ -5,7 +5,7 @@ require './lib/season'
 class SeasonTest < Minitest::Test
 
   def setup
-    Game.from_csv('./data/games_dummy.csv')
+    Game.from_csv('./data/games.csv')
     @game = Game.all[0]
 
     Team.from_csv('./data/teams.csv')
@@ -67,6 +67,11 @@ class SeasonTest < Minitest::Test
     assert_equal "FC Dallas", Season.winningest_team
   end
 
+  def test_it_can_sort_by_season
+    season = Season.seasons_filter("20132014")
+    assert_instance_of Season, season[0]
+  end
+
   def test_it_can_determine_best_fans
     assert_equal "LA Galaxy", Season.best_fans
   end
@@ -75,49 +80,60 @@ class SeasonTest < Minitest::Test
     assert_equal ["Sporting Kansas City", "Seattle Sounders FC"], Season.worst_fans
   end
 
-  def test_finds_team_name_with_biggest_bust
-    assert_equal "Montreal Impact", Season.biggest_bust("20132014")
+  def test_it_can_return_team_with_most_tackles_in_the_season
+    assert_equal "Houston Dash", Season.most_tackles("20132014")
   end
 
-  def test_can_find_all_regular_season_games
-    regular_season_games = Season.all_regular_season_games("20132014")
-
-    assert_instance_of Array, regular_season_games
-    assert_instance_of Game, regular_season_games[0]
-    assert_instance_of Game, regular_season_games[-1]
+  def test_it_can_return_team_with_fewest_tackles_in_the_season
+    assert_equal "Montreal Impact", Season.fewest_tackles("20132014")
   end
 
-  def test_can_find_all_postseason_games
-    postseason_games = Season.all_postseason_games("20132014")
-
-    assert_instance_of Array, postseason_games
-    assert_instance_of Game, postseason_games[0]
-    assert_instance_of Game, postseason_games[-1]
+  def test_it_can_return_the_winningest_coach_by_season
+    assert_equal "John Tortorella", Season.winningest_coach("20132014")
   end
 
-  def test_finds_total_regular_season_games_by_team
-    assert_equal ({13=>2, 19=>2, 26=>1, 29=>1}), Season.total_regular_season_games_by_team("20132014")
+  def test_it_can_return_the_worst_coach_by_season
+    assert_equal "Mike Yeo", Season.worst_coach("20132014")
   end
 
-  def test_finds_total_postseason_games_by_team
-    assert_equal ({5=>5, 4=>5, 14=>2, 1=>2, 54=>2, 28=>2}), Season.total_postseason_games_by_team("20132014")
+  def test_most_accurate_team
+    assert_equal "Utah Royals FC", Season.most_accurate_team("20132014")
   end
 
-  def test_finds_total_regular_season_wins_by_team
-    assert_equal ({13=>1, 19=>1, 26=>1, 29=>0}), Season.total_regular_season_wins_by_team("20132014")
+  def test_least_accurate_team
+    assert_equal "Minnesota United FC", Season.least_accurate_team("20132014")
   end
 
-  def test_finds_total_postseason_wins_by_team
-    assert_equal ({5=>3, 4=>1, nil=>0, 14=>1, 1=>1, 54=>1, 28=>1}), Season.total_postseason_wins_by_team("20132014")
+  def test_it_can_find_best_season
+    assert_equal ("20122013"), Season.best_season("6")
   end
 
-  def test_regular_season_win_percentages
-    assert_equal ({13=>50.0, 19=>50.0, 26=>100.0, 29=>0.0}), Season.regular_season_win_percentages("20132014")
+  def test_it_can_find_worst_season
+    assert_equal "20122013", Season.worst_season("6")
   end
 
-  def test_postseason_win_percentages
-    expected = {5=>60.0, 4=>20.0, 14=>50.0, 1=>50.0, 54=>50.0, 28=>50.0}
+  def test_it_can_find_average_win_percentage
+    assert_equal (0.8), Season.average_win_percentage("6")
+  end
 
-    assert_equal expected, Season.postseason_win_percentages("20132014")
+  def test_it_can_find_the_difference_between_scores
+    hash = {"2012030221"=>"away", "2012030222"=>"away"}
+    assert_equal ({6=>1}), Season.difference_between_scores(hash)
+  end
+  
+  def test_it_can_calculate_most_goals_scored_by_team_id
+    assert_equal 2, Season.most_goals_scored("18")
+  end
+
+  def test_it_can_calculate_fewest_goals_scored_by_team_id
+    assert_equal 0, Season.fewest_goals_scored("18")
+  end
+
+  def test_can_find_winner
+    assert_equal 6, Season.winner(@game)
+  end
+
+  def test_can_find_loser
+    assert_equal 3, Season.loser(@game)
   end
 end
