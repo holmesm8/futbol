@@ -26,14 +26,15 @@ class Team
 
   def self.team_info(teamid)
     team = find_team(teamid)
-    teaminfo = {"team_id" => team.team_id, "franchise_id" => team.franchise_id,
+
+    teaminfo = {"team_id" => team.team_id.to_s, "franchise_id" => team.franchise_id,
                 "team_name" => team.team_name, "abbreviation" => team.abbreviation,
                 "link" => team.link}
   end
 
   def self.find_team(teamid)
     @@all_teams.find do |team|
-      team.team_id == teamid
+      team.team_id.to_s == teamid
     end
   end
 end

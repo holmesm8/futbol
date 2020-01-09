@@ -108,6 +108,22 @@ class StatTracker
     Season.biggest_bust(season)
   end
 
+  def winningest_coach(season_id)
+    Season.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    Season.worst_coach(season_id)
+  end
+
+  def most_accurate_team(season_id)
+    Season.most_accurate_team(season_id)
+  end
+
+  def least_accurate_team(season_id)
+    Season.least_accurate_team(season_id)
+  end
+
   def most_tackles(season)
     Season.most_tackles(season)
   end
@@ -116,13 +132,30 @@ class StatTracker
     Season.fewest_tackles(season)
   end
 
-  def winningest_coach(season_id)
-    Season.winningest_coach(season_id)
+  def team_info(id)
+    Team.team_info(id)
   end
 
-  def worst_coach(season_id)
-    Season.worst_coach(season_id)
+  def best_season(id)
+    Season.best_season(id)
   end
+
+  def worst_season(id)
+    Season.worst_season(id)
+  end
+
+  def average_win_percentage(int)
+    Season.average_win_percentage(int)
+  end
+
+  def most_goals_scored(int)
+    Season.most_goals_scored(int)
+  end
+
+  def fewest_goals_scored(int)
+    Season.fewest_goals_scored(int)
+  end
+
 
   #
   # def max_value_team
