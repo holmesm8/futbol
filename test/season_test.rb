@@ -206,8 +206,12 @@ class SeasonTest < Minitest::Test
   def test_it_can_calculate_most_goals_scored_by_team_id
     assert_equal 2, Season.most_goals_scored("18")
   end
-  
+
   def test_it_can_calculate_fewest_goals_scored_by_team_id
     assert_equal 0, Season.fewest_goals_scored("18")
+  end
+
+  def test_finds_favorite_opponent
+    assert "dskfgb", Season.favorite_opponent("6")
   end
 end

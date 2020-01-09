@@ -153,14 +153,14 @@ class Season < Game
     team_names
   end
 
-  def self.biggest_bust(season)
-    seasons = seasons_filter(season)
-    games = @@all_games.find_all {|game| game if game.season == season}
-
-    games_by_season.map do |season|
-
-    end
-  end
+  # def self.biggest_bust(season)
+  #   seasons = seasons_filter(season)
+  #   games = @@all_games.find_all {|game| game if game.season == season}
+  #
+  #   games_by_season.map do |season|
+  #
+  #   end
+  # end
 
   def self.winner(game_object)
     if game_object.home_goals > game_object.away_goals
@@ -403,6 +403,36 @@ class Season < Game
     counter
   end
 
+  # def self.favorite_opponent(team_id)
+  #   # Name of who they win against the most
+  #   games = @@all_games.find_all do |game|
+  #     game if (game.home_team_id == team_id || game.away_team_id == team_id)
+  #   end
+  #
+  #   team_id_seasons = @@all_seasons.find_all do |season|
+  #     season if (season.team_id.to_s == team_id)
+  #   end
+  #   # require "pry"; binding.pry
+  #
+  #   game_ids = team_id_seasons.map do |season|
+  #     season.game_id
+  #   end.uniq
+  #
+  #   game_ids.reduce(Hash.new(0)) do |acc, game_id|
+  #
+  #     acc
+  #   end
+  #   # games = all_games_by_team_id(team_id)
+  #   # games.find_all do |game|
+  #   #   game if game.game_id == games
+  #   #
+  #   # testy = games.reduce(Hash.new(0)) do |acc, game|
+  #   #
+  #   # end
+  #   # [oppenent_id, games won, total games played against this team]
+  #   # {team_id: {oppenent_id: .4, ...........}}
+  # end
+
   # def coach_wins
   #   seasons_by_season.reduce(Hash.new(0)) do |result, season|
   #     result[season.head_coach] += 1 if season.result == "WIN"
@@ -416,12 +446,6 @@ class Season < Game
   #     result
   #   end
   # end
-
-
-# team_accuracy_hash = shot_to_goal_ratio_per_game(season_id)
-# team_accuracy_average_hash = average_shots_per_goal_by_team(team_accuracy_hash)
-# binding.pry
-# max_value_team(team_accuracy_average_hash)
 end
 
 

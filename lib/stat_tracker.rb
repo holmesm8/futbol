@@ -156,6 +156,18 @@ class StatTracker
     Season.fewest_goals_scored(int)
   end
 
+  def favorite_opponent(team_id)
+    Season.favorite_opponent(team_id)
+  end
+
+  def biggest_team_blowout(team_id)
+    Season.biggest_team_blowout(team_id)
+  end
+
+  def worst_loss(team_id)
+    Season.worst_loss(team_id)
+  end
+
 
   #
   # def max_value_team
